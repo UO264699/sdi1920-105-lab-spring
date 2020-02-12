@@ -26,7 +26,7 @@ public class ProfesorController {
 	@RequestMapping("/profesor/add")
 	public String setProfesor(@ModelAttribute Profesor profesor) {
 		
-	   profesorsService.addProfesor(profesor);
+	   profesorsService.addProfesor(profesor.getDni(),profesor);
 	   return "OK";
 	}
 	

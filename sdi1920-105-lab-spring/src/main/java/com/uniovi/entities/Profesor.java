@@ -1,7 +1,12 @@
 package com.uniovi.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Profesor {
 
+	@Id
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -16,7 +21,9 @@ public class Profesor {
 		this.categoria = categoria;
 	}
 
-	
+	public Profesor() {
+		
+	}
 	public String getDni() {
 		return dni;
 	}

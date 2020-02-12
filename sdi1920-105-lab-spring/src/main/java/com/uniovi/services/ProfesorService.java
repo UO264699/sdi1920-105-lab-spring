@@ -1,41 +1,49 @@
 package com.uniovi.services;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Profesor;
+import com.uniovi.repositories.ProfesorsRepository;
 
 @Service
 public class ProfesorService {
 
-	private List<Profesor> profesorsList = new LinkedList<Profesor>()
-			;
-	 @PostConstruct
-	 public void init(){
-	 profesorsList.add(new Profesor("12345677S","Andrés","Fernández","..."));
-	 profesorsList.add(new Profesor("12645687S","Manuel","Garcia","..."));
-	 }
+	@Autowired
+	private ProfesorsRepository profesorsRepository; 
+			
+	 
 	public List<Profesor> getProfesors(){
-	return profesorsList;
+		
+		List<Profesor> profesors = new ArrayList<Profesor>();
+		profesorsRepository.findAll().forEach(profesors::add);
+		return profesors;
+
+	
 	}
 	public Profesor getProfesor(String dni){
-	return profesorsList.stream()
-	.filter(profesor -> profesor.getDni().equals(dni)).findFirst().get();
+		
+		return profesorsRepository.findById(dni).get();
 	}
-	public void addProfesor(Profesor profesor){
+	public void addProfesor(String dni,Profesor profesor){
 	
-	 profesorsList.add(profesor);
+		profesor.setDni(dni);
+		profesorsRepository.save(profesor);
 	}
 	public void deleteProfesor(String dni){
-	profesorsList.removeIf(profesor -> profesor.getDni().equals(dni));
+		
+		profesorsRepository.deleteById(dni);
+		
 	}
 	
 	public void edit(String dni,String categoria) {
 		
-	   getProfesor(dni).setCategoria(categoria);
+		profesorsRepository.findById(dni).get().setCategoria(categoria);
 	}
 }
