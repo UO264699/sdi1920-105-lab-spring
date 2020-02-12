@@ -1,16 +1,19 @@
 package com.uniovi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Profesor;
 import com.uniovi.services.ProfesorService;
 
-@RestController
+@Controller
 public class ProfesorController {
 
 	@Autowired 
@@ -18,16 +21,19 @@ public class ProfesorController {
 	
 	
 	@RequestMapping("/profesor/list")
-	public String getList() {
-		return profesorsService.getProfesors().toString();
+	public String getList(Model model) {
+		
+		model.addAttribute("profesorList", profesorsService.getProfesors() );
+		return "profesor/list";
+
 		
 	}
 	
-	@RequestMapping("/profesor/add")
+	@RequestMapping(value = "/profesor/add", method=RequestMethod.POST)
 	public String setProfesor(@ModelAttribute Profesor profesor) {
 		
 	   profesorsService.addProfesor(profesor.getDni(),profesor);
-	   return "OK";
+	   return "redirect:/profesor/list";
 	}
 	
 	@RequestMapping("/profesor/details/{dni}")
@@ -41,15 +47,18 @@ public class ProfesorController {
 	public String deleteProfesor(@PathVariable String dni) {
 		
 		profesorsService.deleteProfesor(dni);
-		return "OK";
+		return "redirect:/profesor/list";
 	}
 	
 	@RequestMapping("/profesor/edit/{dni}/{categoria}")
 	public String getEdit(@PathVariable String dni,@PathVariable String categoria) {
 		
 		profesorsService.edit(dni, categoria);
-		return "OK";
+		return "redirect:/profesor/list";
 	}
 	
-	
+	@RequestMapping(value="/profesor/add")
+	public String getProfesor(){
+	return "profesor/add";
+	}
 }
