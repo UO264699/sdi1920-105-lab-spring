@@ -23,9 +23,9 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/user/list">Ver Usuarios</a></li>
-		<li><a href="/user/add">Agregar Usuario</a></li>
-        <li><a href="/user/filter">Filtrar</a></li>
+        <li class="active"><a href="/mark/list">Ver Notas</a></li>
+		<li><a href="/mark/add">Agregar Nota</a></li>
+        <li><a href="/mark/filter">Filtrar</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 	    <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
@@ -38,33 +38,20 @@
 
 
 <div class="container">
-  <h2>Editar Usuario</h2>
-  <form class="form-horizontal" method="post" th:action="${'/user/edit/' + user.id}">
+  <h2>Editar Nota</h2>
+  <form class="form-horizontal" method="post" th:action="${'/mark/edit/' + mark.id}">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="description">Usuario:</label>
+      <label class="control-label col-sm-2" for="description">Descripción:</label>
       <div class="col-sm-10">
-        <input th:value="${user.dni}" type="text" class="form-control" name="dni" placeholder="Ejemplo Ejercicio 1" required="true" />
+        <input th:value="${mark.description}" type="text" class="form-control" name="description" placeholder="Ejemplo Ejercicio 1" required="true" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Nombre:</label>
+      <label class="control-label col-sm-2" for="pwd">Puntuación:</label>
       <div class="col-sm-10">          
-        <input th:value="${user.name}" type="text" class="form-control" name="name" placeholder="Enetre 0 y 10" required="true" />
+        <input th:value="${mark.score}" type="number" class="form-control" name="score" placeholder="Enetre 0 y 10" required="true" />
       </div>
     </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Apellido:</label>
-      <div class="col-sm-10">          
-        <input th:value="${user.lastName}" type="text" class="form-control" name="lastName" placeholder="Enetre 0 y 10" required="true" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Contraseña:</label>
-      <div class="col-sm-10">          
-        <input th:value="${user.password}" type="text" class="form-control" name="password" placeholder="Enetre 0 y 10" required="true" />
-      </div>
-    </div>
-    
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-primary">Modificar</button>
