@@ -2,6 +2,8 @@ package com.uniovi.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Profesor {
@@ -12,13 +14,27 @@ public class Profesor {
 	private String apellido;
 	private String categoria;
 	
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 	
+	
+
 	public Profesor(String dni, String nombre, String apellido, String categoria) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.categoria = categoria;
+	}
+	
+	public Profesor(String nombre, String apellido, String categoria,Department department) {
+		super();
+		
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.categoria = categoria;
+		this.department = department;
 	}
 
 	public Profesor() {
@@ -66,7 +82,13 @@ public class Profesor {
 
 
 	
-	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 	
 	
 }
