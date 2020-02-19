@@ -15,20 +15,26 @@
 				<li><a href="/">Home</a></li>
 				<li id="marks-menu" class = "dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Gestión de notas <span class="caret"></span>
+						<span
+								th:text="#{gestionnotas.message}"></span><span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="/mark/add">Agregar Nota</a></li>
-						<li><a href="/mark/list">Ver Notas</a></li>
+						<li><a href="/mark/add"><span
+								th:text="#{addmark.message}"></span></a></li>
+						<li><a href="/mark/list"><span
+								th:text="#{listmark.message}"></span></a></li>
 					</ul>
 				</li>
 				<li id="users-menu" class ="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Gestión de Usuarios <span class="caret"></span>
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
+								th:text="#{gestionusuarios.message}"></span>
+						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="/user/add">Agregar Usuario</a></li>
-						<li><a href="/user/list">Ver Usuarios</a></li>
+						<li><a href="/user/add"><span
+								th:text="#{addusers.message}"></span></a></li>
+						<li><a href="/user/list"><span
+								th:text="#{listusers.message}"></span></a></li>
 					</ul>
 				</li>
 			
@@ -49,6 +55,9 @@
 								th:src="@{/img/if_spain_flag.png}"
 								style="border: 0; float: left; margin-right: 15px" /> <span
 								th:text="#{language.es}">Español</span>
+						</a></li>
+						<li><a id="btnItalian" value="IT">  <span
+								th:text="#{language.it}">Italiano</span>
 						</a></li>
 					</ul></li>
 				<li><a href="/signup" th:text="#{signup.message}"> <span
