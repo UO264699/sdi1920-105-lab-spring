@@ -1,5 +1,7 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,8 +33,21 @@ public class UsersController {
 	private SignUpFormValidator signUpFormValidator;
 	
 	@RequestMapping("/user/list" )
-	public String getListado(Model model){
-		model.addAttribute("usersList", usersService.getUsers());
+	public String getListado(Model model,Principal principal,@RequestParam(value ="",required=false) String searchText){
+		
+		String name = principal.getName();
+		
+		User user = usersService.getUserByDni(name);
+		
+		if(searchText != null && !searchText.isEmpty()) {
+			
+			model.addAttribute("usersList",usersService.searchMarksByDescriptionAndNameForUser(searchText, user));
+		}
+		else {
+			model.addAttribute("usersList", usersService.getUsers());
+		}
+		
+		
 		return "user/list";
 	}
 	
