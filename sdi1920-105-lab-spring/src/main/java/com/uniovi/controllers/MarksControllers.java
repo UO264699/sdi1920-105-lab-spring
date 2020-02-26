@@ -47,9 +47,9 @@ public class MarksControllers {
 		
 		if(searchText != null && !searchText.isEmpty()) {
 			
-			model.addAttribute("markList", marksService.searchMarksByDescriptionAndNameForUser(pageable,searchText, user));
+			marks = marksService.searchMarksByDescriptionAndNameForUser(pageable,searchText, user);
 		}else {
-			model.addAttribute("markList", marksService.getMarksForUser(pageable,user) );
+			marks = marksService.getMarksForUser(pageable,user) ;
 		}
 		
 		model.addAttribute("markList", marks.getContent());
@@ -101,14 +101,14 @@ public class MarksControllers {
 	}
 
 	@RequestMapping("/mark/list/update")
-	public String updateList(Model model,Pageable pageable, Principal principal){
+	public String updateList(Model model, Principal principal,Pageable pageable){
 		String dni = principal.getName(); // DNI es el name de la autenticación
 		User user = usersService.getUserByDni(dni);
 		Page<Mark> marks = marksService.getMarksForUser(pageable, user);
 		model.addAttribute("markList", marks.getContent());
 		return "mark/list :: tableMarks";
 	}
-	
+
 	@RequestMapping(value="/mark/{id}/resend", method=RequestMethod.GET)
 	public String setResendTrue(Model model, @PathVariable Long id){
 		marksService.setMarkResend(true, id);

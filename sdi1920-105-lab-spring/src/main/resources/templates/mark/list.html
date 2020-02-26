@@ -90,7 +90,10 @@
 								<div th:if="${mark.resend}">
 									<button type="button" th:id="${'resendButton' + mark.id}"
 										class="btn btn-info">Reenviar</button>
+
+
 									<script th:inline="javascript">
+							
  /*<![CDATA[*/
  $( "#resendButton[[${mark.id}]]" ).click(function() {
  $.get( "/mark/[[${mark.id}]]/noresend", function( data ) {
@@ -103,13 +106,14 @@
  });
  });
  /*]]>*/
- </script> 
-	</div>
+ </script>
+								</div>
 								<div th:unless="${mark.resend}">
 
 									<button type="button" th:id="${'noresendButton' + mark.id}"
 										class="btn btn-default">No reenviar</button>
 									<script th:inline="javascript">
+									
  /*<![CDATA[*/
  $( "#noresendButton[[${mark.id}]]" ).click(function() {
  $.get( "/mark/[[${mark.id}]]/resend", function( data ) {
@@ -136,8 +140,6 @@
 		</div>
 		<footer th:replace="fragments/pagination" />
 
-	</div>
-	</div>
 	</div>
 
 	<footer th:replace="fragments/footer" />
