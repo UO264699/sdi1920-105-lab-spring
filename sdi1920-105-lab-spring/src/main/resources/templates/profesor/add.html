@@ -68,14 +68,7 @@
         <input type="text" class="form-control" name="categoria"  required="true" />
       </div>
     </div>
- <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Departamento:</label>
-      <div class="col-sm-10">          
-        <input type="text" class="form-control" name="department"  required="true" />
-        <span class="text-danger" th:if="${#fields.hasErrors('apellido')}"
- th:errors="*{apellido}">
-      </div>
-    </div>
+ 
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-primary">Enviar</button>

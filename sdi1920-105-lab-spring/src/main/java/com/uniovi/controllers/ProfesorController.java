@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Department;
+import com.uniovi.entities.Mark;
 import com.uniovi.entities.Profesor;
 import com.uniovi.services.ProfesorService;
 import com.uniovi.validators.ProfesorValidator;
@@ -25,8 +26,6 @@ public class ProfesorController {
 	@Autowired 
 	private ProfesorService profesorsService;
 	
-	@Autowired
-	private ProfesorValidator profesorValidator;
 	
 	
 	@RequestMapping("/profesor/list")
@@ -39,21 +38,17 @@ public class ProfesorController {
 	}
 	
 	@RequestMapping(value = "/profesor/add", method=RequestMethod.POST)
-	public String setProfesor(@Validated Profesor profesor,BindingResult result) {
+	public String setProfesor(Profesor profesor) {
 		
-		profesorValidator.validate(profesor, result);
-		if(result.hasErrors())
-			return "/profesor/add";
 		
 	   profesorsService.addProfesor(profesor.getDni(),profesor);
 	   return "redirect:/profesor/list";
 	}
 	
 	@RequestMapping("/profesor/details/{dni}")
-	public String getDetail(@PathVariable String dni) {
-		
-		return profesorsService.getProfesor(dni).toString();
-
+	public String getDetail(Model model, @PathVariable String dni){
+	model.addAttribute("profesor", profesorsService.getProfesor(dni));
+	return "profesor/details";
 	}
 	
 	@RequestMapping("/profesor/delete/{dni}")
@@ -63,16 +58,26 @@ public class ProfesorController {
 		return "redirect:/profesor/list";
 	}
 	
-	@RequestMapping("/profesor/edit/{dni}/{categoria}")
-	public String getEdit(@PathVariable String dni,@PathVariable String categoria) {
+	@RequestMapping(value="/profesor/edit/{dni}")
+	public String getEdit(Model model, @PathVariable String dni){
+		model.addAttribute("profesor", profesorsService.getProfesor(dni));
 		
-		profesorsService.edit(dni, categoria);
-		return "redirect:/profesor/list";
+		return "profesor/edit";
 	}
 	
 	@RequestMapping(value="/profesor/add")
 	public String getProfesor(Model model){
 		model.addAttribute("profesor", new Profesor());
 	return "profesor/add";
+	}
+	
+	@RequestMapping(value="/profesor/edit/{dni}", method=RequestMethod.POST)
+	public String setEdit(Model model, @PathVariable String dni, @ModelAttribute Profesor profesor){
+		Profesor original = profesorsService.getProfesor(dni);
+		// modificar solo score y description
+		original.setNombre(profesor.getNombre());
+		original.setApellido(profesor.getApellido());
+		profesorsService.addProfesor(dni,original);
+		return "redirect:/profesor/details/"+dni;
 	}
 }

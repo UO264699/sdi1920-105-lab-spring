@@ -49,11 +49,11 @@
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Categoria</th>
-        <th>Departamento</th>
+
 		<th class="col-md-1"> </th>
 		<th class="col-md-1"> </th>
 		<th class="col-md-1"> </th>
-		<th class="col-md-1"> </th>
+		
       </tr>
     </thead>
 	<tbody>
@@ -64,8 +64,8 @@
 	    <td th:text="${profesor.categoria}"></td>
 	    <td th:text="${profesor.department}"></td>
 	    <td><a th:href="${'/profesor/details/' + profesor.dni}">detalles</a></td>
-	    <td><a th:href="${'/profesor/edit/' + profesor.dni}">modificar</a></td>
-	    <td><a th:href="${'/profesor/delete/' + profesor.dni}">eliminar</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/profesor/edit/' + profesor.dni}">modificar</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/profesor/delete/' + profesor.dni}">eliminar</a></td>
 	  </tr>
 	</tbody>
   </table>

@@ -42,6 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		 .antMatchers("/mark/delete/*").hasAuthority("-ROLE_PROFESSOR")
 		 .antMatchers("/mark/**").hasAnyAuthority("ROLE_STUDENT","ROLE_PROFESSOR","ROLE_ADMIN")
 		 .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
+		 
+		 .antMatchers("/profesor/add").hasAuthority("ROLE_ADMIN")
+		 .antMatchers("/profesor/edit/*").hasAuthority("ROLE_ADMIN")
+		 .antMatchers("/profesor/delete/*").hasAuthority("ROLE_ADMIN")
+		 .antMatchers("/profesor/list").hasAnyAuthority("ROLE_ADMIN","ROLE_PROFESSOR","ROLE_STUDENT")
+		 .antMatchers("/profesor/details/*").hasAnyAuthority("ROLE_ADMIN","ROLE_PROFESSOR")
 
 		.anyRequest().authenticated()
 		.and()

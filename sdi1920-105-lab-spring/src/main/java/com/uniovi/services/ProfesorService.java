@@ -47,9 +47,9 @@ public class ProfesorService {
 		
 	}
 	
-	public void edit(String dni,String categoria) {
+	public void edit(String dni) {
 		
-		profesorsRepository.findById(dni).get().setCategoria(categoria);
+		profesorsRepository.findById(dni).get();
 	}
 	
 	

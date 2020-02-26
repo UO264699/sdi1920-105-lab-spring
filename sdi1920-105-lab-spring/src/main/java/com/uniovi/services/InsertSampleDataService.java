@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Department;
 import com.uniovi.entities.Mark;
+import com.uniovi.entities.Profesor;
 import com.uniovi.entities.User;
 
 @Service
@@ -18,6 +19,9 @@ public class InsertSampleDataService {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private ProfesorService profesorsService;
 	
 	@Autowired
 	private DepartmentsService departmentService;
@@ -36,6 +40,7 @@ public class InsertSampleDataService {
 		user4.setPassword("123456");
 		user4.setRole(rolesService.getRoles()[1]);
 		User user5 = new User("99999977E", "Pelayo", "Valdes");
+		Profesor profesor = new Profesor("99999977E", "Pelayo", "Valdes", " ");
 		user5.setPassword("123456");
 		user5.setRole(rolesService.getRoles()[1]);
 		User user6 = new User("99999988F", "Edward", "Núñez");
@@ -101,6 +106,8 @@ public class InsertSampleDataService {
 	    departmentService.addDepartment(department2);
 	    departmentService.addDepartment(department3);
 	    departmentService.addDepartment(department4);
+	    
+	    profesorsService.addProfesor("99999977E", profesor);
 	    
 	}
 }
